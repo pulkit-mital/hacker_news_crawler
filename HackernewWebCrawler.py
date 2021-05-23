@@ -1,4 +1,4 @@
-import datetime
+from _datetime import datetime
 
 from requests_html import HTMLSession
 from bs4 import BeautifulSoup
@@ -46,7 +46,7 @@ class ArticleScraper:
             post_title = post.find('.home-title', first=True).text
             post_image = post.find('.home-img-src', first=True).attrs['data-src']
             post_description = post.find('.home-desc', first=True).text
-            article = Article(post_title, post_description, post_image, post_link, self.category_name, self.category_slug, datetime.datetime.now())
+            article = Article(post_title, post_description, post_image, post_link, self.category_name, self.category_slug, datetime.today().strftime('%Y-%m-%d'))
             if not articles_collection.find({"title": post_title}).count() > 0:
                 articles_collection.insert_one(article.__dict__)
 
